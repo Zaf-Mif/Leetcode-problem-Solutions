@@ -1,0 +1,38 @@
+# Problem: Capacity To Ship Packages Within D Days - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+
+// bool isValid(int valid);
+bool isValid(const vector<int>& weights, int days, int valid) {
+    int day = 1 , store = 0;
+    for (int weight : weights ){
+        if (store + weight <= valid){
+            store += weight;
+        }
+        else{
+            day++;
+            store = weight;
+        }
+    }
+    return day <= days;
+}
+
+class Solution {
+public:
+    int shipWithinDays(vector<int>& weights, int days) {
+        int low = *max_element(weights.begin(), weights.end());
+        int high = accumulate(weights.begin() , weights.end(), 0 ) , mid , ans;
+
+        while(low <= high){
+            mid = low + (high - low) / 2;
+
+            if (isValid(weights , days ,mid)){
+                ans = mid;
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+};
