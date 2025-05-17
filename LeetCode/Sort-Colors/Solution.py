@@ -3,9 +3,11 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        for i in range(n):
-            for j in range(n-1):
-                if nums[j] > nums[j+1]:
-                    nums[j] , nums[j+1] = nums[j+1] , nums[j]
+        # can i just use 
+        num = 0
+        while num < len(nums):
+            for i in range(num + 1, len(nums)):
+                if nums[num] > nums[i]:
+                    nums[num], nums[i] = nums[i], nums[num]
+            num += 1
         
